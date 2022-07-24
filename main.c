@@ -480,6 +480,8 @@ void chip8_t_emulate_cycle(union chip8_t *c8)
             // The interpreter copies the values of registers V0 through Vx
             // into memory, starting at the address in I.
             memcpy(c8->memory + c8->I, c8->V, x + 1);
+            // according to Griffin, the interpreter also incremented I
+            // by x + 1 after this instruction
             c8->I += x + 1;
             c8->PC += 2;
         }
@@ -490,6 +492,8 @@ void chip8_t_emulate_cycle(union chip8_t *c8)
             // The interpreter reads values from memory starting at location I
             // into registers V0 through Vx.
             memcpy(c8->V, ((c8->memory) + (c8->I)), x + 1);
+            // according to Griffin, the interpreter also incremented I
+            // by x + 1 after this instruction
             c8->I += x + 1;
             c8->PC += 2;
         }
