@@ -1,8 +1,8 @@
-SRC=main.cc
+SRC=main.c
 TARGET=main
 
 make:	$(SRC)
-	g++ -o $(TARGET) $(SRC) -lSDL2
+	gcc -o $(TARGET) $(SRC) -lSDL2
 
 clean:
 	rm -f $(TARGET)
