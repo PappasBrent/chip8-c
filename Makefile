@@ -1,8 +1,11 @@
 SRC=main.c
-TARGET=main
+TARGET=chip8
 
-make:	$(SRC)
+$(TARGET):	$(SRC)
 	gcc -o $(TARGET) $(SRC) -lSDL2
+
+test:	$(TARGET)
+	./$(TARGET) ./test_roms/test_opcode.ch8
 
 clean:
 	rm -f $(TARGET)
