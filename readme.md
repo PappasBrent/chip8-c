@@ -28,5 +28,5 @@ You should see this if all the tests are passing:
 
 ## Acknowledgments and References
 - Thanks to Cowgod for making the first (as far as I know) publicly available [technical reference](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
-- I also referred to James Griffin's implementation a few times for checking my implementation of some of the more ambiguous instructions (e.g, `Fx55` and `Fx65`)
+- I also referred to [James Griffin's implementation](https://github.com/JamesGriffin/CHIP-8-Emulator/) a few times for checking my implementation of some of the more ambiguous instructions (e.g, `Fx55` and `Fx65`)
 - Finally, corax89's CHIP-8 [test rom](https://github.com/corax89/chip8-test-rom) made it easy (read: possible) to test my emulator
