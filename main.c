@@ -529,6 +529,9 @@ int main(int argc, char const *argv[])
 {
     union chip8_t c8;
     // clear memory
+    // here is why I like C unions.
+    // instead of initializing each struct member, we can
+    // just set all the memory to zero!
     memset(c8.memory, 0, MEM_NB);
     // load font set
     memcpy(c8.fontset, FONTSET, FONTSET_NB);
