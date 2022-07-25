@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_mixer.h"
 
 enum constants
 {
@@ -560,11 +561,19 @@ int main(int argc, char const *argv[])
     SDL_Window *window = NULL;
 
     // Initialize SDL
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
     {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         exit(1);
     }
+    // Initialize SDL_mixer
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+    {
+        printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+    }
+    // load sfx
+    Mix_Chunk *beep_sfx = Mix_LoadWAV("./beep.wav");
+
     // Create window
     window = SDL_CreateWindow(
         "CHIP-8 Emulator",
@@ -654,12 +663,28 @@ int main(int argc, char const *argv[])
             SDL_RenderPresent(renderer);
         }
 
+        // play sfx
+        if (c8.ST > 0)
+        {
+            Mix_PlayChannel(-1, beep_sfx, 0);
+        }
+
         // Sleep to slow down emulation speed
         sleep(0.167);
     }
 
 end:
+
+    // free audio
+    Mix_FreeChunk(beep_sfx);
+
+    // free window
     SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+
+    // quit SDL subsystems
+    Mix_Quit();
+    SDL_Quit();
 
     return 0;
 }
