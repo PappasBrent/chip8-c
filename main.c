@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
-#include <unistd.h>
+#include <time.h>
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_mixer.h"
@@ -553,6 +553,11 @@ int main(int argc, char const *argv[])
     fread(c8.memory + PROG_START, sizeof(uint8_t), (MEM_NB - PROG_START), rom);
     fclose(rom);
 
+    // prepare timespec struct for slowing down execution
+    struct timespec ts;
+    ts.tv_nsec = 0.167 * 10000000;
+    ts.tv_sec = 0;
+
     // set up SDL
     int w = 1024; // Window width
     int h = 512;  // Window height
@@ -670,7 +675,7 @@ int main(int argc, char const *argv[])
         }
 
         // Sleep to slow down emulation speed
-        sleep(0.167);
+        nanosleep(&ts, &ts);
     }
 
 end:
